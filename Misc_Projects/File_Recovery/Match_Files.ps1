@@ -4,9 +4,9 @@ if ((Test-Path 'Match_File.txt') -eq $False)
     New-Item 'Match_File.txt' -ItemType "File" | Out-Null
 }
 # This CSV was created from the set of recovered files
-$recovered_files = Import-Csv -Path E:\Recovered_Files_List.csv
+$recovered_files = Import-Csv -Path 'Recovered_Files.csv'
 # This CSV was created from the set of known files, in the storage area
-$known_files = Import-Csv -Path E:\Known_Files_List.csv
+$known_files = Import-Csv -Path 'Known_Files.csv'
 
 foreach($rfile in $recovered_files)
 {

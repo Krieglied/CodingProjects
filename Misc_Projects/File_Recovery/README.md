@@ -1,0 +1,1 @@
+These files were created to help me figure out which files existed already and which files had been added after the main storage area was created.  The file recovery software I used wasn't that great with naming many of the files, so I needed to compare the two sets to see what was missing from the media server.

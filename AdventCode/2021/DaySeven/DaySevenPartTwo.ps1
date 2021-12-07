@@ -1,29 +1,22 @@
 $crab_pos = Get-Content .\day7_input.txt
 $crab_pos = $crab_pos.Split(',')
-$max_pos = $crab_pos | Measure-Object -Maximum
-
-$crab_pos = $crab_pos | Sort-Object
-if ($crab_pos.count %2 ) {
-    #odd
-    $median = $crab_pos[[math]::Floor($crab_pos.count / 2)]
-}
-else {
-    #even
-    $median = ($crab_pos[$crab_pos.Count / 2], $crab_pos[$crab_pos.count / 2 - 1] |Measure-Object -Average).average
-}
-
+$mean = [int]($crab_pos | Measure-Object -Average).Average
 $answer_sum = -1
 $range = 10
 $found = $False
 $previous_sum = -1
 while($found -eq $False)
 {
-    foreach($align in ($median - 30)..($median + 30))
+    foreach($align in ($mean-$range)..($mean+$range))
     {
         $current_sum = 0
         foreach($crab in $crab_pos)
         {
-            $current_sum += [Math]::Abs([int]$crab - $align)
+            $distance = [Math]::Abs([int]$crab - $align)
+            # Part 2 introduces adding the sum of numbers, with n
+            # equal to the distance between the starting position
+            # and the new alignment
+            $current_sum += ($distance*($distance + 1)) / 2
         }
         if($answer_sum -eq -1)
         {
@@ -35,7 +28,6 @@ while($found -eq $False)
             $answer_sum = $current_sum
         }
     }
-
     if($previous_sum -eq -1)
     {
         $previous_sum = $answer_sum

@@ -3,9 +3,8 @@ function New-BingoCards{
         $data
     )
     $bingo_cards = @()
-    $bingo_card = @{1=@();2=@();3=@();4=@();5=@();sum=0;name=0}
+    $bingo_card = @{1=@();2=@();3=@();4=@();5=@();sum=0}
     $index = 0
-    $id = 1
     # The process of the cards starts on the third line
     # at index 2 of the array
     $last = $data[$data.Length-1]
@@ -28,9 +27,8 @@ function New-BingoCards{
         }
         else {
             $bingo_cards += $bingo_card
-            $bingo_card = @{1=@();2=@();3=@();4=@();5=@();sum=0;name=0}
+            $bingo_card = @{1=@();2=@();3=@();4=@();5=@();sum=0}
             $index = 0
-            $id++
         }
         if($line -eq $last)
         {
@@ -46,7 +44,7 @@ function Test-WinCondition{
         $index
     )
     $no_row = $True
-    $no_column = $False
+    $no_column = $True
     # Test to see if the row will all equal the same value, i.e. ""
     # If not, set variable to False
     for($i = 1; $i -lt 5; $i++)
@@ -79,7 +77,6 @@ function Search-BingoCard{
         $draw_numbers,
         $card
     )
-    $times_drawn = 0
     foreach($number in $draw_numbers.Split(','))
     {
         $index = -1
@@ -92,14 +89,13 @@ function Search-BingoCard{
                 $card[$i][$index] = ""
                 if(Test-WinCondition -card $card -row $i -index $index)
                 {
-                    $result = $card.sum, $number, $card.name
+                    $result = $card.sum, $number
                     return $result
                 }
             }
         }
-        $times_drawn++
     }
-    $result = 0, 0, 0
+    $result = 0, 0
     return $result
 }
 
@@ -115,11 +111,11 @@ foreach($card in $bingo_cards)
 }
 foreach($draw in $bingo_draws)
 {
-    for($i = 1; $i -lt $results.Length; $i += 3)
+    for($i = 0; $i -lt $results.Length; $i += 2)
     {
-        if($draw -eq $results[$i])
+        if($draw -eq $results[$i+1])
         {
-            Write-Host $results[$i+1] " card to win has sum " $results[$i-1] " the drawing card was " $results[$i] " and answer is " ($results[$i-1] * [int]$results[$i])
+            Write-Host "Sum " $results[$i] " the drawing card was " $results[$i+1] " and answer is " ($results[$i] * [int]$results[$i+1])
             break
         }
     }

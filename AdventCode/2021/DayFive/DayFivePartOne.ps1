@@ -1,31 +1,5 @@
-function New-StartingPoint
-{
-    param(
-        $coord1,
-        $coord2,
-        $min
-    )
-    if($min -eq "x")
-    {
-        if([Math]::Min($coord1[0], $coord2[0]) -eq $coord1[0])
-        {
-            return $coord1, $coord2
-        }
-        return $coord2, $coord1
-    }
-    else 
-    {
-        if([Math]::Min($coord1[1], $coord2[1]) -eq $coord1[1])
-        {
-            return $coord1, $coord2
-        }
-        return $coord2, $coord1
-    }
-}
-
-
 $field = @()
-$row_size = $column_size = 9
+$row_size = $column_size = 999
 foreach($i in 0..$row_size)
 {
     $row = @()
@@ -36,7 +10,7 @@ foreach($i in 0..$row_size)
     $field += $row
 }
 
-$coords = Get-Content .\test_data.txt
+$coords = Get-Content .\day5_input.txt
 $coords = $coords.replace('->', ' ')
 $coords = $coords.Split('  ') | Where-Object {$_ -ne ''}
 
@@ -64,8 +38,34 @@ for($i = 0; $i -lt ($coords.Length); $i+=2)
     }
     else
     {
-        $coords = New-StartingPoint -coord1 ($x1, $y1) -coord2 ($x2, $y2) -min "x"
-        $coords
+        if($x2 -gt $x1 -and $y2 -gt $y1)
+        {
+            for(; $x1 -le $x2 -and $y1 -le $y2; $x1++, $y1++)
+            {
+                $field[$y1*($row_size + 1) + $x1]++
+            }
+        }
+        elseif ($x1 -gt $x2 -and $y1 -gt $y2) 
+        {
+            for(; $x2 -le $x1 -and $y2 -le $y1; $x2++, $y2++)
+            {
+                $field[$y2*($row_size + 1) + $x2]++
+            }    
+        }
+        elseif ($x1 -gt $x2 -and $y2 -gt $y1) 
+        {
+            for(; $x1 -ge $x2 -and $y1 -le $y2; $x1--, $y1++)
+            {
+                $field[$y1*($row_size + 1) + $x1]++
+            }    
+        }
+        elseif ($x2 -gt $x1 -and $y1 -gt $y2) 
+        {
+            for(; $x2 -ge $x1 -and $y2 -le $y1; $x2--, $y2++)
+            {
+                $field[$y2*($row_size + 1) + $x2]++
+            }
+        }
     }
 }
 $sum = 0

@@ -134,6 +134,10 @@ function Get-SignalOutput
                 {
                     $value += "9"
                 }
+                elseif($lookup.Name -eq "zero")
+                {
+                    $value += "0"
+                }
             }
         }
 

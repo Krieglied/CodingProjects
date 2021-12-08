@@ -162,5 +162,6 @@ for($i = 0; $i -lt $entries.Length; $i++)
 {
     $sum = Get-SignalOutput -input_line_items $input_values[$i].Split() -output_line_items $output_values[$i].Split()
     $total_sum += $sum
-    Write-Host "Line output is " $sum "and the new sum: " $total_sum
+    
 }
+Write-Host "Line output is " $sum "and the new sum: " $total_sum

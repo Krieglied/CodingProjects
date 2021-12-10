@@ -1,5 +1,6 @@
 $nav_commands = Get-Content .\day10_input_Graham.txt
 $incomplete_lines = [System.Collections.ArrayList]@()
+$op_commands = @{'('=')';'['=']';'{'='}';'<'='>'}
 foreach ($chunk in $nav_commands)
 {
     # This time if the line is corrupted, skip over it
@@ -13,10 +14,7 @@ foreach ($chunk in $nav_commands)
             $stack.Push($command)
         }
         # If one of the end commands, test to see if last element of stack matches
-        elseif(($command -eq ")" -and $stack.Peek() -eq "(") -or 
-            ($command -eq "]" -and $stack.Peek() -eq "[") -or 
-            ($command -eq "}" -and $stack.Peek() -eq "{") -or 
-            ($command -eq ">" -and $stack.Peek() -eq "<"))
+        elseif($command -eq $op_commands[$stack.Peek().ToString()])
         {
             $null = $stack.Pop()
         }
@@ -36,6 +34,7 @@ foreach ($chunk in $nav_commands)
     
 }
 $completion_scores = [System.Collections.ArrayList]@()
+$values = @{'('=1;'['=2;'{'=3;'<'=4}
 foreach($line in $incomplete_lines)
 {
     $total_complete_sum = 0
@@ -43,26 +42,10 @@ foreach($line in $incomplete_lines)
     {
         # Since each set of incomplete lines is simply a stack, pop the element
         # and perform the computation per character
-        $new_character = $line.Pop()
         $total_complete_sum *= 5
-        if($new_character -eq "(")
-        {
-            $total_complete_sum += 1
-        }
-        if($new_character -eq "[")
-        {
-            $total_complete_sum += 2
-        }
-        if($new_character -eq "{")
-        {
-            $total_complete_sum += 3
-        }
-        if($new_character -eq "<")
-        {
-            $total_complete_sum += 4
-        }
+        $total_complete_sum += $values[$line.Pop().toString()]
     }
     $completion_scores.Add($total_complete_sum) | Out-Null
 }
 $completion_scores = $completion_scores | Sort-Object -Property $number
-$completion_scores[$completion_scores.Count / 2]
+Write-Host "Middle Completion Score :" $completion_scores[$completion_scores.Count / 2]

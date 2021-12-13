@@ -1,4 +1,6 @@
-﻿$readings = Get-Content .\day3_input.txt
+﻿# The two rates are computed by finding the most common value
+# at each bit
+$readings = Get-Content .\day3_input.txt
 $common_bits = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 foreach ($reading in $readings)

@@ -1,3 +1,5 @@
+# Only notable comment about this problem, is using
+# a switch made things pretty straightforward
 $commands = Get-Content .\day2_input.txt
 $horz_pos = 0
 $depth = 0

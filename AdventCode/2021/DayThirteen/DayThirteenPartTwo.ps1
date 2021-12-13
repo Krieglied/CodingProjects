@@ -51,7 +51,7 @@ for($y = 0; $y -le $max_row; $y++)
             $line += "#"
         }
         else {
-            $line += "."
+            $line += " "
         }
     }
     $line

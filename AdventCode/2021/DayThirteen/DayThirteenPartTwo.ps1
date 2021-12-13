@@ -48,7 +48,7 @@ for($y = 0; $y -le $max_row; $y++)
     {
         if($collection_of_dots.Contains([System.ValueTuple[int, int]]::new($x, $y)))
         {
-            $line += "#"
+            $line += [char]0x2588
         }
         else {
             $line += " "

@@ -51,10 +51,8 @@ function New-Packet{
         else {
             $number_packets = [Convert]::ToInt32($bit_string.Substring($index, 11), 2)
             $index += 11
-            #Write-Host "NUMBER OF PACKETS: " $number_packets
             for($i = 0; $i -lt $number_packets; $i++)
             {
-                Write-Host "SUBSTRING LENGTH: " $bit_string.Length "INDEX: " $index
                 $packet_version, $used_index = New-Packet -bit_string $bit_string.Substring($index) -has_length $True
                 $version += $packet_version
                 $index += $used_index
@@ -89,5 +87,4 @@ foreach($digit in $digits.ToCharArray())
 {
     $full_bit_string += $hex_form[$digit.toString()]
 }
-#Write-Host "TOTAL LENGTH: " $full_bit_string.Length
 New-Packet -bit_string $full_bit_string

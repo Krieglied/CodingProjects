@@ -68,10 +68,11 @@ foreach($line in $content[2..($content.Length)])
     $pixels.Add($letter) | Out-Null
 }
 # $i will control the numbers of steps to apply the enchancement algorithm
-for($i = 0; $i -lt 2; $i++)
+for($i = 0; $i -lt 50; $i++)
 {
     $pixels = Run-Algorithm -pixels $pixels -enchancement $enchancement_alg -infinite_value $infinite_value
     $infinite_value = IF($infinite_value -eq ".") {"#"} ELSE {"."}
+    $i
 }
 $sum = 0
 foreach($line in $pixels)

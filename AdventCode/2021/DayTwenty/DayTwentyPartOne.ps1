@@ -19,7 +19,6 @@ function Build-NewPixel
             else
             {
                 $enchanced_pixel += "0"
-                
             }
         }
     }

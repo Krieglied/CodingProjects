@@ -71,7 +71,7 @@ foreach($line in $content[2..($content.Length)])
 for($i = 0; $i -lt 2; $i++)
 {
     $pixels = Run-Algorithm -pixels $pixels -enchancement $enchancement_alg -infinite_value $infinite_value
-    $infinite_value = IF($infinite_value -eq ".") {"#"} ELSE {"."}
+    $infinite_value = $enchancement_alg[([Convert]::ToInt32(($infinite_value.ToString()*9).Replace("#", "1").Replace(".", "0"), 2))]
 }
 $sum = 0
 foreach($line in $pixels)

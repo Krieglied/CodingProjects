@@ -13,8 +13,4 @@ for line in data:
         assignment_pair += 1
     elif int(second_assign[0]) in range(int(first_assign[0]), int(first_assign[1]) + 1) and int(second_assign[1]) in range(int(first_assign[0]), int(first_assign[1]) + 1):
         assignment_pair += 1
-    elif int(first_assign[0]) in range(int(second_assign[0]), int(second_assign[1]) + 1) or int(first_assign[1]) in range(int(second_assign[0]), int(second_assign[1]) + 1):
-        assignment_pair += 1
-    elif int(second_assign[0]) in range(int(first_assign[0]), int(first_assign[1]) + 1) and int(second_assign[1]) in range(int(first_assign[0]), int(first_assign[1]) + 1):
-        assignment_pair += 1 
 print(assignment_pair)

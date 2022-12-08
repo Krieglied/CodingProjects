@@ -33,14 +33,14 @@ for line in data[::-1]:
         new_node = Tree(line_comps[2])
         new_node.filesize = filesize
         for child in children:
-            new_node.dirsize += child.filesize
+            new_node.dirsize += child.filesize + child.dirsize
             new_node.children.append(child)
             nodes.remove(child)
         nodes.append(new_node)
         filesize = 0
         children = []
     elif line_comps[0] == 'dir':
-        for node in nodes:
+        for node in nodes[::-1]:
             if node.name == line_comps[1]:
                 children.append(node)
                 break

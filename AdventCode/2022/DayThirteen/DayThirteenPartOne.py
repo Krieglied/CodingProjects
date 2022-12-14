@@ -15,10 +15,12 @@ def build_list(line):
     return temp_list
 
 def test_element(element1, element2):
+    # If both elements are just integers
     if type(element1) != list and type(element2) != list:
         if element1 <= element2:
             return True
         return False
+    # If both elements are list
     if type(element1) == list and type(element2) == list:
         while len(element1) > 0:
             if element1 != [] and element2 != []:
@@ -32,6 +34,7 @@ def test_element(element1, element2):
             elif element2 == []:
                 return False
         return True
+    # If one of them is a list and the other an integer
     if type(element1) == list and type(element2) != list:
         if element1 != []:
             if type(element1[0]) == list:
@@ -40,6 +43,7 @@ def test_element(element1, element2):
             if int(value1) <= int(element2):
                 return True
         return False        
+    # If one of them is a list and the other an integer
     if type(element2) == list and type(element1) != list:
         if element2 != []:
             if type(element2[0]) == list:

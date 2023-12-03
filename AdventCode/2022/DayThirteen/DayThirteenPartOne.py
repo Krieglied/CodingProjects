@@ -72,15 +72,14 @@ while line_num < len(data):
         element1 = stack1.pop(0)
         element2 = stack2.pop(0)
         total_test = test_element(element1, element2)
-        if (len(stack1) == 0) and total_test:
+        if (len(stack1) == 0) or total_test:
             break
         if len(stack2) == 0 or not total_test:
             break
     if (len(stack1) == 0) and total_test or len(stack2) == 0:
         sum_indices += index
     line_num += 2
-    if line_num == 435:
-        print(f'LINE {line_num}')
+    print(f'Index {index} was in the {total_test} order.')
     index += 1
 
 print(sum_indices)

@@ -4,7 +4,7 @@ with open('./data.txt', 'r') as file_object:
     data = file_object.read().splitlines()
 
 not_pos = []
-not_line = 2000001
+not_line = 2000000
 
 for line in data:
     split_line = line.strip().split(' ')

@@ -16,16 +16,27 @@ for index, line in enumerate(data):
             additional_cols[gal.start()] = 0
             found_galaxies.append((index, gal.start()))
 
+inserted = 0
+
+for index, row in enumerate(additional_rows):
+    if row == 1:
+        data.insert(index + inserted, "." * len(data[0][:-1]) + "\n")
+        inserted += 1
+
+inserted = 0
+
+for index, col in enumerate(additional_cols):
+    if col == 1:
+        for col_index, line in enumerate(data):
+            data[col_index] = line[:index + inserted] + "." + line[index + inserted:]
+        inserted += 1
+
 distance_sum = 0
 
-for index, gal in enumerate(found_galaxies):
+for index, gal in enumerate(found_galaxies[:-1]):
     for end_point in range(index + 1, len(found_galaxies)):
-        min_y = min(gal[0], found_galaxies[end_point][0])
-        max_y = max(gal[0], found_galaxies[end_point][0])
-        min_x = min(gal[1], found_galaxies[end_point][1])
-        max_x = max(gal[1], found_galaxies[end_point][1])
-        x_distance = (max_x + sum(additional_cols[min_x + 1: max_x])) - min_x
-        y_distance = (max_y + sum(additional_cols[min_y + 1: max_y])) - min_y
+        x_distance = abs(gal[1] - found_galaxies[end_point][1])
+        y_distance = abs(gal[0] - found_galaxies[end_point][0])
         distance_sum += x_distance + y_distance
 
 print(f"The sum of the lengths is {distance_sum}")

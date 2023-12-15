@@ -1,6 +1,6 @@
 import re
 
-with open("test.txt") as file_object:
+with open("input.txt") as file_object:
     data = file_object.readlines()
 
 additional_rows = [1] * len(data)
@@ -24,8 +24,8 @@ for index, gal in enumerate(found_galaxies):
         max_x = max(gal[0], found_galaxies[end_point][0])
         min_y = min(gal[1], found_galaxies[end_point][1])
         max_y = max(gal[1], found_galaxies[end_point][1])
-        x_distance = (max_x + sum(additional_rows[min_x + 1: max_x]) * 10) - min_x
-        y_distance = (max_y + sum(additional_cols[min_y + 1: max_y]) * 10) - min_y
+        x_distance = (max_x + sum(additional_rows[min_x + 1: max_x]) * (1000000 - 1)) - min_x
+        y_distance = (max_y + sum(additional_cols[min_y + 1: max_y]) * (1000000 - 1)) - min_y
         distance_sum += x_distance + y_distance
 
 print(f"The sum of the lengths is {distance_sum}")
